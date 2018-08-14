@@ -18,9 +18,10 @@ injectGlobal`
   }
   body {
       background: #fff;
-      color: #555;
+      color: #444;
       font-size: 14px;
       font-family: "Arial", "Microsoft YaHei", "黑体", "宋体", sans-serif;
+      min-width: 600px;
   }
   td, th, caption {
       font-size: 14px;
@@ -36,9 +37,7 @@ injectGlobal`
   a {
       color: #555;
       text-decoration: none;
-  }
-  a:hover {
-      text-decoration: underline;
+      cursor: pointer;
   }
   img {
       border: none;
