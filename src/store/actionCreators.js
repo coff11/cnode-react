@@ -6,7 +6,15 @@ import {
   ITEM_CLICK_ASK,
   ITEM_CLICK_JOB,
   TITLE_CLICK,
-  GET_DETAILS
+  GET_DETAILS,
+  LOG_BTN_CLICK,
+  TEST_TOKEN,
+  CHANGE_INFO,
+  EMPTY_INFO,
+  LOAD_USER,
+  GET_USER_DATA,
+  ADD_REPLIES,
+  SEND_REPLIES
 } from './actionTypes'
 
 export const clickItemsAllAction = (tab) => {
@@ -62,6 +70,64 @@ export const clickTitleAction = (id) => {
 export const getAtcDetails = (data) => {
   return {
     type: GET_DETAILS,
+    data
+  }
+}
+
+export const clickLogBtnAction = (value) => {
+  return {
+    type: LOG_BTN_CLICK,
+    value
+  }
+}
+
+export const testTokenAction = (data) => {
+  return {
+    type: TEST_TOKEN,
+    data
+  }
+}
+
+
+
+export const displayInfo = (data) => {
+  return {
+    type: CHANGE_INFO,
+    data
+  }
+}
+
+export const emptyInfoAction = () => {
+  return {
+    type: EMPTY_INFO
+  }
+}
+
+export const loadUserDataAction = (name) => {
+  return {
+    type: LOAD_USER,
+    name
+  }
+}
+
+export const getUserDataAction = (data) => {
+  return {
+    type: GET_USER_DATA,
+    data
+  }
+}
+
+export const addRepliesAction = (data, id) => {
+  return {
+    type: ADD_REPLIES,
+    data,
+    id
+  }
+}
+
+export const sendRepliesAction = (data) => {
+  return {
+    type: SEND_REPLIES,
     data
   }
 }

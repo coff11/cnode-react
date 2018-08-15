@@ -3,14 +3,20 @@ import styled from 'styled-components'
 export const DetailWrapper = styled.div`
   width: 80%;
   margin: 0 auto;
+  .hide {
+    opacity: 0;
+  }
+  .show {
+    opacity: 1;
+  }
 `
 
 export const BackToHome = styled.div`
   font-size: 16px;
   line-height: 40px;
   position: fixed;
-  transform: translateY(-50%);
-  top: 50%;
+  top: 60px;
+  right: 30px;;
   margin: 10px 0 0 20px;
   a {
     padding: 10px 20px;
@@ -74,5 +80,44 @@ export const DetailBody = styled.div`
   code {
     background: #eee;
     border-radius: 10px;
+  }
+  img {
+    width: 600px;
+  }
+`
+
+
+export const ReviewInfo = styled.div`
+  height: 40px;
+  line-height: 40px;
+  background: #40a9ff;
+  color: #fff;
+  font-size: 16px;
+  border-radius: 5px;
+  padding-left: 30px;
+`
+
+export const ReviewArea = styled.div`
+  overflow: hidden;
+  textarea {
+    width: 100%;
+    height: 200px;
+    padding: 30px;
+  }
+  .rev-btn {
+    display: inline-block;
+    float: right;
+    margin: 10px 30px 10px 0;
+    width: 50px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 5px;
+    background: #40a9ff;
+    color: #fff;
+    transition: all .2s;
+    text-align: center;
+  }
+  .rev-btn: hover {
+    background: #0050b3;
   }
 `

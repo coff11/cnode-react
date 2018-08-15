@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Item, Avatar, Tag, Title, InfoWrapper, OthInfo } from './style'
 import moment from 'moment'
-import { HashRouter, NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { clickTitleAction } from '../../store/actionCreators'
 
@@ -18,12 +18,10 @@ class ListItem extends Component {
         <Tag className={top? 'top' : good? 'good' : tab}>{this.getTabCn(top? 'top' : good? 'good' : tab)}</Tag>
         <InfoWrapper>
           <Title>
-            <HashRouter>
-              <NavLink 
-                to='/detail' 
-                onClick={this.props.handleTitleClick.bind(this, this.props.atcId)
-                }>{this.props.atcTitle}</NavLink>
-            </HashRouter>
+            <Link 
+              to='/detail' 
+              onClick={this.props.handleTitleClick.bind(this, this.props.atcId)
+              }>{this.props.atcTitle}</Link>
           </Title>
           <OthInfo>
             <div>{this.props.replyCount}/{this.props.visitCount}</div>
@@ -106,6 +104,7 @@ class ListItem extends Component {
     }
     return [num, date].join('')
   }
+
 
 }
 

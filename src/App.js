@@ -7,6 +7,8 @@ import { Provider } from 'react-redux'
 import store from './store'
 import { clickItemsAllAction } from './store/actionCreators'
 import ToTop from './components/ToTop'
+import Login from './components/Login'
+import User from './components/User'
 
 class App extends Component {
   render() {
@@ -17,7 +19,9 @@ class App extends Component {
           <HashRouter>
             <div>
               <Route path='/' exact component={Home}></Route>
-              <Route path='/detail' exact component={Detail}></Route>
+              <Route path='/detail' component={Detail}></Route>
+              <Route path='/login' component={Login}></Route>
+              <Route path='/user' component={User}></Route>
             </div>
           </HashRouter>
           <ToTop></ToTop>
@@ -26,9 +30,9 @@ class App extends Component {
     )
   }
 
-componentDidMount() {
-  store.dispatch(clickItemsAllAction())
-}
+  componentDidMount() {
+    store.dispatch(clickItemsAllAction())
+  }
 
 }
 

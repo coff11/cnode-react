@@ -1,7 +1,11 @@
 import { 
   INIT_ITEMS_ALL,
   TITLE_CLICK,
-  GET_DETAILS
+  GET_DETAILS,
+  TEST_TOKEN,
+  CHANGE_INFO,
+  EMPTY_INFO,
+  GET_USER_DATA
 } from './actionTypes'
 
 const defaultState = {
@@ -14,7 +18,16 @@ const defaultState = {
   dtAuthorName: '',
   dtCreateTime: '',
   dtVisitCount: '',
-  dtReplies: []
+  dtReplies: [],
+  reviewLoaded: true,
+  testLogin: false,
+  isLogin: false,
+  toastInfo: '',
+  userId: '',
+  userName: '',
+  userAvtUrl: '',
+  recentReplies: [],
+  recentTopics: []
 }
 
 export default (state=defaultState, action) => {
@@ -24,11 +37,10 @@ export default (state=defaultState, action) => {
       newState.articleLists = action.data.data
       newState.hasBottom = action.tab
       newState.isLoading = false
-      console.log(newState.isLoading, 'INIT_ITEMS_ALL')
       return newState
     case TITLE_CLICK:
       newState.content = action.data
-      console.log(newState.content, 555)
+      newState.reviewLoaded = false
       return newState
     case GET_DETAILS:
       newState.dtActId = action.data.id
@@ -38,10 +50,28 @@ export default (state=defaultState, action) => {
       newState.dtCreateTime = action.data.create_at
       newState.dtReplies = action.data.replies
       newState.dtVisitCount = action.data.visit_count
+      newState.reviewLoaded = true
+      return newState
+    case TEST_TOKEN:
+      console.log(action.data)
+      newState.isLogin = action.data.success
+      newState.userId = action.data.id
+      newState.userName = action.data.loginname
+      window.localStorage.setItem('username', action.data.loginname)
+      return newState
+    case CHANGE_INFO:
+      newState.toastInfo = action.data
+      return newState
+    case EMPTY_INFO:
+      newState.toastInfo = ''
+      return newState
+    case GET_USER_DATA:
+      newState.userAvtUrl = action.data.avatar_url
+      newState.recentReplies = action.data.recent_replies
+      newState.recentTopics = action.data.recent_topics
       return newState
     default:
       newState.isLoading = true
-      console.log(newState.isLoading, "default")
       return newState
   }
 }

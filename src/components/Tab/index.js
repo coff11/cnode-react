@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { HashRouter, NavLink } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { TabWrapper } from './style'
 import { connect } from 'react-redux'
 import { 
@@ -16,34 +16,32 @@ class Tab extends Component {
   render() {
     return (
       <TabWrapper>
-        <HashRouter>
           <div>
             <ul>
               <li>
-                <NavLink to='/' 
+                <Link to='/' 
                   onClick={this.props.handleLinkClickAll} 
                   className={this.props.tab === 'all'? ' pink-bottom' : ' '}
-                >全部</NavLink>
-                <NavLink to='/' 
+                >全部</Link>
+                <Link to='/' 
                   onClick={this.props.handleLinkClickGood}
                   className={this.props.tab === 'good'? ' pink-bottom' : ' '}
-                >精华</NavLink>
-                <NavLink to='/'
+                >精华</Link>
+                <Link to='/'
                   onClick={this.props.handleLinkClickShare}
                   className={this.props.tab === 'share'? ' pink-bottom' : ' '}
-                >分享</NavLink>
-                <NavLink to='/'
+                >分享</Link>
+                <Link to='/'
                   onClick={this.props.handleLinkClickAsk}
                   className={this.props.tab === 'ask'? ' pink-bottom' : ' '}
-                >问答</NavLink>
-                <NavLink to='/'
+                >问答</Link>
+                <Link to='/'
                   onClick={this.props.handleLinkClickJob}
                   className={this.props.tab === 'job'? ' pink-bottom' : ' '}                
-                >招聘</NavLink>
+                >招聘</Link>
               </li>
             </ul>
           </div>
-        </HashRouter>
       </TabWrapper>
     )
   }

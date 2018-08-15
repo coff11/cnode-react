@@ -15,7 +15,7 @@ export const Logo = styled.div`
   }
 `
 
-export const Login = styled.div`
+export const Logbtn = styled.div`
   float: right;
   font-size: 16px;
   line-height: 60px;
@@ -31,5 +31,12 @@ export const Login = styled.div`
   a:hover {
     color: #eee;
     opacity: 1;
+  }
+`
+
+export const UserWrapper = styled.div`
+  display: inline-block;
+  span {
+    padding: 10px 20px;
   }
 `
