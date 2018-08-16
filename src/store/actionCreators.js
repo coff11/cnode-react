@@ -1,10 +1,6 @@
 import { 
   ITEM_CLICK_ALL, 
-  INIT_ITEMS_ALL, 
-  ITEM_CLICK_GOOD, 
-  ITEM_CLICK_SHARE,
-  ITEM_CLICK_ASK,
-  ITEM_CLICK_JOB,
+  INIT_ITEMS_ALL,
   TITLE_CLICK,
   GET_DETAILS,
   LOG_BTN_CLICK,
@@ -14,41 +10,15 @@ import {
   LOAD_USER,
   GET_USER_DATA,
   ADD_REPLIES,
-  SEND_REPLIES
+  SEND_REPLIES,
+  LOAD_MORE,
+  GET_MORE_DATA
 } from './actionTypes'
 
-export const clickItemsAllAction = (tab) => {
+export const clickItemsAllAction = (value) => {
   return {
     type: ITEM_CLICK_ALL,
-    tab
-  }
-}
-
-export const clickItemsGoodAction = (tab) => {
-  return {
-    type: ITEM_CLICK_GOOD,
-    tab
-  }
-}
-
-export const clickItemsShareAction = (tab) => {
-  return {
-    type: ITEM_CLICK_SHARE,
-    tab
-  }
-}
-
-export const clickItemsAskAction = (tab) => {
-  return {
-    type: ITEM_CLICK_ASK,
-    tab
-  }
-}
-
-export const clickItemsJobAction = (tab) => {
-  return {
-    type: ITEM_CLICK_JOB,
-    tab
+    tab: value
   }
 }
 
@@ -87,8 +57,6 @@ export const testTokenAction = (data) => {
     data
   }
 }
-
-
 
 export const displayInfo = (data) => {
   return {
@@ -129,5 +97,19 @@ export const sendRepliesAction = (data) => {
   return {
     type: SEND_REPLIES,
     data
+  }
+}
+
+export const loadMoreData = (tab) => {
+  return {
+    type: LOAD_MORE,
+    tab
+  }
+}
+
+export const getMoreDataAction = (res) => {
+  return {
+    type: GET_MORE_DATA,
+    res
   }
 }

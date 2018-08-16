@@ -1,14 +1,13 @@
-import { takeEvery, put} from 'redux-saga/effects'
+import { takeEvery, put } from 'redux-saga/effects'
+import axios from 'axios'
+
 import { 
-  ITEM_CLICK_ALL, 
-  ITEM_CLICK_GOOD, 
-  ITEM_CLICK_SHARE, 
-  ITEM_CLICK_ASK,
-  ITEM_CLICK_JOB,
+  ITEM_CLICK_ALL,
   TITLE_CLICK,
   LOG_BTN_CLICK,
   LOAD_USER,
-  ADD_REPLIES
+  ADD_REPLIES,
+  LOAD_MORE
 } from './actionTypes'
 import { 
   initItemsAllAction, 
@@ -16,50 +15,18 @@ import {
   testTokenAction, 
   displayInfo, 
   getUserDataAction,
-  sendRepliesAction
+  sendRepliesAction,
+  getMoreDataAction
 } from './actionCreators'
-import axios from 'axios'
 
-function* getItemsAll() {
-  try {
-    const res = yield axios.get('https://cnodejs.org/api/v1/topics')
-    yield put(initItemsAllAction(res.data, 'all'))
-  } catch(e) {
-    yield put(displayInfo('获取数据失败'))
-  }
-}
+// 加载更多数据时默认请求第2页
+let page = 2
 
-function* getItemsGood() {
+function* getItemsAll(act) {
   try {
-    const res = yield axios.get('https://cnodejs.org/api/v1/topics?tab=good')
-    yield put(initItemsAllAction(res.data, 'good'))
-  } catch(e) {
-    yield put(displayInfo('获取数据失败'))
-  }
-}
-
-function* getItemsShare() {
-  try {
-    const res = yield axios.get('https://cnodejs.org/api/v1/topics?tab=share')
-    yield put(initItemsAllAction(res.data, 'share'))
-  } catch(e) {
-    yield put(displayInfo('获取数据失败'))
-  }
-}
-
-function* getItemsAsk() {
-  try {
-    const res = yield axios.get('https://cnodejs.org/api/v1/topics?tab=ask')
-    yield put(initItemsAllAction(res.data, 'ask'))
-  } catch(e) {
-    yield put(displayInfo('获取数据失败'))
-  }
-}
-
-function* getItemsJob() {
-  try {
-    const res = yield axios.get('https://cnodejs.org/api/v1/topics?tab=job')
-    yield put(initItemsAllAction(res.data, 'job'))
+    const res = yield axios.get(`https://cnodejs.org/api/v1/topics?tab=${act.tab}&page=1&limit=40`)
+    yield put(initItemsAllAction(res.data, act.tab))
+    yield page = 2      // 当列表所有数据被重新加载时，将page恢复为默认值2
   } catch(e) {
     yield put(displayInfo('获取数据失败'))
   }
@@ -77,9 +44,7 @@ function* getDetails(act) {
 function* logIn(act) {
   try {
     const res = yield axios.post('https://cnodejs.org/api/v1/accesstoken', {accesstoken: act.value})
-    
     window.localStorage.setItem('accesstoken', act.value)
-    console.log(res,"denglu")
     yield put(testTokenAction(res.data))
   } catch(e) {
     yield put(displayInfo('accesstoken 验证未通过'))
@@ -110,17 +75,23 @@ function* addReplies(act) {
   }
 }
 
+function* getMoreData(act) {
+  try {
+    const res = yield axios.get(`https://cnodejs.org/api/v1/topics?tab=${act.tab}&page=${page}&limit=40`)
+    yield put(getMoreDataAction(res.data.data))
+    yield page += 1     // 获取更多数据时，每次请求成功之后，page累加
+  } catch(e) {
+    yield put(displayInfo('获取数据失败'))
+  }
+}
+
 function* mySaga() {
   yield takeEvery(ITEM_CLICK_ALL, getItemsAll)
-  yield takeEvery(ITEM_CLICK_GOOD, getItemsGood)
-  yield takeEvery(ITEM_CLICK_SHARE, getItemsShare)
-  yield takeEvery(ITEM_CLICK_ASK, getItemsAsk)
-  yield takeEvery(ITEM_CLICK_JOB, getItemsJob)
   yield takeEvery(TITLE_CLICK, getDetails)
   yield takeEvery(LOG_BTN_CLICK, logIn)
   yield takeEvery(LOAD_USER, getUserData)
   yield takeEvery(ADD_REPLIES, addReplies)
-
+  yield takeEvery(LOAD_MORE, getMoreData)
 }
 
 export default mySaga

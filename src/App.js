@@ -1,16 +1,19 @@
 import React, { Component } from 'react'
-import Header from './components/Header'
 import { HashRouter, Route } from 'react-router-dom'
-import Home from './components/Home'
-import Detail from './components/Detail'
 import { Provider } from 'react-redux'
+
 import store from './store'
 import { clickItemsAllAction } from './store/actionCreators'
+
+import Header from './components/Header'
+import Home from './components/Home'
+import Detail from './components/Detail'
 import ToTop from './components/ToTop'
 import Login from './components/Login'
 import User from './components/User'
 
 class App extends Component {
+  
   render() {
     return (
       <Provider store={store}>
@@ -31,7 +34,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    store.dispatch(clickItemsAllAction())
+    store.dispatch(clickItemsAllAction('all'))
   }
 
 }

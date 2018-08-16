@@ -5,7 +5,8 @@ import {
   TEST_TOKEN,
   CHANGE_INFO,
   EMPTY_INFO,
-  GET_USER_DATA
+  GET_USER_DATA,
+  GET_MORE_DATA
 } from './actionTypes'
 
 const defaultState = {
@@ -53,7 +54,6 @@ export default (state=defaultState, action) => {
       newState.reviewLoaded = true
       return newState
     case TEST_TOKEN:
-      console.log(action.data)
       newState.isLogin = action.data.success
       newState.userId = action.data.id
       newState.userName = action.data.loginname
@@ -69,6 +69,9 @@ export default (state=defaultState, action) => {
       newState.userAvtUrl = action.data.avatar_url
       newState.recentReplies = action.data.recent_replies
       newState.recentTopics = action.data.recent_topics
+      return newState
+    case GET_MORE_DATA:
+      newState.articleLists.push(...action.res)
       return newState
     default:
       newState.isLoading = true

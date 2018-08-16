@@ -55,6 +55,9 @@ injectGlobal`
   html {
       overflow-y: scroll;
   }
+  code {
+    white-space: pre-wrap;
+  }
   .clearfix:before,
   .clearfix:after {
       content: "";

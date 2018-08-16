@@ -1,24 +1,28 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { UserWrapper, UserAvatar, RecentWrapper, Logout } from './style'
-import { loadUserDataAction, clickItemsAllAction } from '../../store/actionCreators'
 import { Link } from 'react-router-dom'
 
+import { loadUserDataAction, clickItemsAllAction } from '../../store/actionCreators'
+import { UserWrapper, UserAvatar, RecentWrapper, Logout } from './style'
+
+
 class User extends Component {
+
   render() {
+    const { userAvtUrl, handleBtnLogout, recentReplies, recentTopics  } = this.props
     return (
       <UserWrapper>
         <UserAvatar>
-          <img src={this.props.userAvtUrl}  alt=''/>
+          <img src={userAvtUrl}  alt=''/>
           <Logout>
-            <Link to='/' onClick={this.props.handleBtnLogout}>退出</Link>
+            <Link to='/' onClick={handleBtnLogout}>退出</Link>
           </Logout>
         </UserAvatar>
         <RecentWrapper>
           <div className='replies'>
             <div className='header'>最近回复的话题</div>
             <ul>
-              {this.props.recentReplies.length === 0? '最近没有发布过话题' : this.props.recentReplies.map((item, index) => {
+              {recentReplies.length === 0? '最近没有发布过话题' : recentReplies.map((item) => {
                 return <li key={item.id}>{item.title}</li>
               })}
             </ul>
@@ -26,7 +30,7 @@ class User extends Component {
           <div className='topics'>
             <div className='header'>最新的主题</div>
             <ul>
-              {this.props.recentTopics.length === 0? '最近没有新的回复' : this.props.recentTopics.map((item, index) => {
+              {recentTopics.length === 0? '最近没有新的回复' : recentTopics.map((item) => {
                 return <li key={item.id}>{item.content}</li>
               })}
             </ul>
@@ -39,6 +43,7 @@ class User extends Component {
   componentDidMount() {
     this.props.loadUserData(this.props.userName)
   }
+
 }
 
 const mapStateToProps = (state) => {
@@ -59,7 +64,7 @@ const mapDispatchToProps = (dispatch) => {
       window.localStorage.removeItem('accesstoken')
       window.localStorage.removeItem('username')
       window.location.href='/'
-      dispatch(clickItemsAllAction())
+      dispatch(clickItemsAllAction('all'))
     }
   }
 }

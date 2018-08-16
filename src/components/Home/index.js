@@ -1,17 +1,25 @@
 import React, { Component, Fragment } from 'react'
-import { ListWrapper, Spiner } from './style'
-import ListItem from '../ListItem'
 import { connect } from 'react-redux'
+
+import ListItem from '../ListItem'
 import Tab from '../Tab'
 
+import { ListWrapper, Spiner, LoadMore } from './style'
+import { loadMoreData } from '../../store/actionCreators'
+
+
 class Lists extends Component {
+
   render() {
+    const { isLoading, arr } = this.props
     return (
       <Fragment>
+
         <Tab />
+
         <ListWrapper>
           <ul>
-            {this.props.isLoading? <Spiner></Spiner> : this.props.arr.map((item, index) => {
+            {arr.map((item) => {
               return (
                 <ListItem
                   key={item.id}
@@ -27,26 +35,70 @@ class Lists extends Component {
                 ></ListItem>
               )
             })}
+            {isLoading? <Spiner></Spiner> : null }
           </ul>
+          <LoadMore id='load-more'></LoadMore>
         </ListWrapper>
+
       </Fragment>
     )
   }
 
+  // 判断一个元素是否完全进入了可视区
+  isVisible(element) {
+    const rect = element.getBoundingClientRect()
+    const {
+      top,
+      left,
+      bottom,
+      right
+    } = rect
+    return (
+      top >= 0
+      &&
+      left >= 0
+      &&
+      bottom < document.documentElement.clientHeight
+      &&
+      right < document.documentElement.clientWidth
+    )
+  }
+
+  componentDidUpdate() {
+    const { tab, handleLoadMore } = this.props
+    const btn = document.getElementById('load-more')
+    const this_ = this
+
+    // 降低滚动事件的监听频率，提高性能
+    function load () {
+      let canRun=true
+      return () => {
+          if(!canRun){ return }
+          canRun=false
+          setTimeout(() => {
+            this_.isVisible(btn) && handleLoadMore(tab)
+            canRun=true
+          }, 600)
+      }
+    }
+    window.onscroll = load()
+  }
+
 }
-
-
 
 const mapStateToProps = (state) => {
   return {
     arr: state.articleLists,
-    isLoading: state.isLoading
+    isLoading: state.isLoading,
+    tab: state.hasBottom
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-
+    handleLoadMore(tab) {
+      dispatch(loadMoreData(tab))
+    }
   }
 }
 

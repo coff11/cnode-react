@@ -1,48 +1,69 @@
 import React, { Component, Fragment } from 'react'
-import { DetailWrapper, DetailHeader, BackToHome, DetailBody, ReviewInfo, ReviewArea } from './style'
 import { connect } from 'react-redux'
-import { HashRouter, Link } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import moment from 'moment'
+
 import ReviewList from '../Review'
-import { displayInfo, addRepliesAction, clickItemsAllAction } from '../../store/actionCreators'
 import Toast from '../Toast'
 
+import { displayInfo, addRepliesAction, clickItemsAllAction } from '../../store/actionCreators'
+import { 
+  DetailWrapper, 
+  DetailHeader, 
+  BackToHome, 
+  DetailBody, 
+  ReviewInfo, 
+  ReviewArea 
+} from './style'
+
+
 class Detail extends Component {
+
   render() {
+    const { 
+      title, 
+      createTime, 
+      authorName, 
+      visitCount, 
+      content, 
+      isLoaded,
+      info,
+      handleClickReply
+    } = this.props
     return (
       <Fragment>
+
         <BackToHome>
-          <HashRouter>
-            <Link to='/'>回到首页</Link>
-          </HashRouter>
+          <Link to='/'>回到首页</Link>
         </BackToHome>
+
         <DetailWrapper>
           <DetailHeader>
-            <div className='title'>{this.props.title}</div>
+            <div className='title'>{title}</div>
             <div>
-              <span className='create-time'>发布于{moment(this.props.createTime).format('gggg-M-DD')}</span>
+              <span className='create-time'>发布于{moment(createTime).format('gggg-M-DD')}</span>
               作者
-              <span className='author'>{this.props.authorName}</span> 
-              <span>{this.props.visitCount}次浏览</span>
+              <span className='author'>{authorName}</span> 
+              <span>{visitCount}次浏览</span>
             </div>
-            <div></div> 
           </DetailHeader>
           <DetailBody>
-            <div dangerouslySetInnerHTML={{__html: this.props.content}}></div>
+            <div dangerouslySetInnerHTML={{__html: content}}></div>
           </DetailBody>
-
-          <ReviewInfo className={this.props.isLoaded? 'show' : 'hide'}>评论</ReviewInfo>
-          <ReviewArea  className={this.props.isLoaded? 'show' : 'hide'}>
+          <ReviewInfo className={isLoaded? 'show' : 'hide'}>评论</ReviewInfo>
+          <ReviewArea  className={isLoaded? 'show' : 'hide'}>
             <textarea  placeholder='说点什么吧~' ref={(el) => {this.txtEl = el}}/>
             <Link
-              to='/'
+              to={window.localStorage.getItem('accesstoken')? '/' : '/detail'}
               className='rev-btn' 
-              onClick={() => this.props.handleClickReply(this.txtEl, this.props.id)}
+              onClick={() => handleClickReply(this.txtEl, this.props.id)}
             >回复</Link>
-            {this.props.info === ''? null: <Toast />}
+            {info === ''? null: <Toast />}      {/*  当用户未登录时显示提示信息  */}
           </ReviewArea>
         </DetailWrapper>
+
         <ReviewList></ReviewList>
+
       </Fragment>
     )
   }
@@ -67,8 +88,7 @@ const mapDispatchToProps = (dispatch) => {
     handleClickReply(el, id) {
       if (window.localStorage.getItem('accesstoken')) {
         dispatch(addRepliesAction(el.value, id))
-        dispatch(clickItemsAllAction())
-        console.log(this)
+        dispatch(clickItemsAllAction('all'))
       } else {
         dispatch(displayInfo('请先登录'))
       }

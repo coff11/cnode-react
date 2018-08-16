@@ -1,47 +1,44 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
-import { TabWrapper } from './style'
+import { NavLink } from 'react-router-dom'
 import { connect } from 'react-redux'
-import { 
-  clickItemsAllAction, 
-  clickItemsGoodAction, 
-  clickItemsShareAction,
-  clickItemsAskAction,
-  clickItemsJobAction
-} from '../../store/actionCreators'
+
+import { clickItemsAllAction } from '../../store/actionCreators'
+import { TabWrapper } from './style'
 
 
 class Tab extends Component {
 
   render() {
+    const { tab, handleLinkClickAll } = this.props
     return (
       <TabWrapper>
           <div>
             <ul>
               <li>
-                <Link to='/' 
-                  onClick={this.props.handleLinkClickAll} 
-                  className={this.props.tab === 'all'? ' pink-bottom' : ' '}
-                >全部</Link>
-                <Link to='/' 
-                  onClick={this.props.handleLinkClickGood}
-                  className={this.props.tab === 'good'? ' pink-bottom' : ' '}
-                >精华</Link>
-                <Link to='/'
-                  onClick={this.props.handleLinkClickShare}
-                  className={this.props.tab === 'share'? ' pink-bottom' : ' '}
-                >分享</Link>
-                <Link to='/'
-                  onClick={this.props.handleLinkClickAsk}
-                  className={this.props.tab === 'ask'? ' pink-bottom' : ' '}
-                >问答</Link>
-                <Link to='/'
-                  onClick={this.props.handleLinkClickJob}
-                  className={this.props.tab === 'job'? ' pink-bottom' : ' '}                
-                >招聘</Link>
+                <NavLink to='/' 
+                  onClick={() => handleLinkClickAll('all')} 
+                  className={tab === 'all'? ' pink-bottom' : ' '}
+                >全部</NavLink>
+                <NavLink to='/' 
+                  onClick={() => handleLinkClickAll('good')}
+                  className={tab === 'good'? ' pink-bottom' : ' '}
+                >精华</NavLink>
+                <NavLink to='/'
+                  onClick={() => handleLinkClickAll('share')}
+                  className={tab === 'share'? ' pink-bottom' : ' '}
+                >分享</NavLink>
+                <NavLink to='/'
+                  onClick={() => handleLinkClickAll('ask')}
+                  className={tab === 'ask'? ' pink-bottom' : ' '}
+                >问答</NavLink>
+                <NavLink to='/'
+                  onClick={() => handleLinkClickAll('job')}
+                  className={tab === 'job'? ' pink-bottom' : ' '}                
+                >招聘</NavLink>
               </li>
             </ul>
           </div>
+
       </TabWrapper>
     )
   }
@@ -50,28 +47,26 @@ class Tab extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    tab: state.hasBottom,
-    isLoading: state.isLoading
+    tab: state.hasBottom
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
- 
-    handleLinkClickAll() {
-      dispatch(clickItemsAllAction())
+    handleLinkClickAll(v) {
+      dispatch(clickItemsAllAction(v))
     },
-    handleLinkClickGood() {
-      dispatch(clickItemsGoodAction())
+    handleLinkClickGood(v) {
+      dispatch(clickItemsAllAction(v))
     },
-    handleLinkClickShare() {
-      dispatch(clickItemsShareAction())
+    handleLinkClickShare(v) {
+      dispatch(clickItemsAllAction(v))
     },
-    handleLinkClickAsk() {
-      dispatch(clickItemsAskAction())
+    handleLinkClickAsk(v) {
+      dispatch(clickItemsAllAction(v))
     },
-    handleLinkClickJob() {
-      dispatch(clickItemsJobAction())
+    handleLinkClickJob(v) {
+      dispatch(clickItemsAllAction(v))
     }
   }
 }

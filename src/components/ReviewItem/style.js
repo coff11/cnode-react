@@ -8,6 +8,7 @@ export const ItemWrapper = styled.li`
   border-left: 2px solid #eee;
   border-right: 2px solid #eee;
 `
+
 export const Avatar = styled.div`
   width: 40px;
   height: 40px;
@@ -27,9 +28,6 @@ export const RightWrapper = styled.div`
     padding: 10px 0 10px 20px;
     img {
       width: 300px;
-    }
-    pre, code {
-      max-width: 600px;
     }
   }
 `

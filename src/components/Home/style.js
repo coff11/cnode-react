@@ -10,10 +10,8 @@ export const Spiner = styled.div`
   height: 80px;
   margin: 100px auto;
   background-color: #13c2c2;
-
   border-radius: 100%; 
   animation: scaleout 1s infinite ease-in-out;
-
 
   @keyframes scaleout {
     0% {
@@ -24,4 +22,9 @@ export const Spiner = styled.div`
       opacity: 0;
     }
   }
+`
+
+export const LoadMore = styled.div`
+  height: 30px;
+  margin-bottom: 10px;
 `

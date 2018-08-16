@@ -19,6 +19,7 @@ export const UserAvatar = styled.div`
     background: #b5f5ec;
   }
 `
+
 export const Logout = styled.div`
   padding-top: 30px;
   a {

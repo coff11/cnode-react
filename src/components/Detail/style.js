@@ -47,6 +47,7 @@ export const DetailHeader = styled.div`
     padding: 0 20px;
   }
 `
+
 export const DetailBody = styled.div`
   width: 80%;
   padding-bottom: 50px;
@@ -85,7 +86,6 @@ export const DetailBody = styled.div`
     width: 600px;
   }
 `
-
 
 export const ReviewInfo = styled.div`
   height: 40px;

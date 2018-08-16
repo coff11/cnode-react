@@ -1,15 +1,27 @@
 import React, { Component } from 'react'
-import { Item, Avatar, Tag, Title, InfoWrapper, OthInfo } from './style'
-import moment from 'moment'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import moment from 'moment'
+
+import { Item, Avatar, Tag, Title, InfoWrapper, OthInfo } from './style'
 import { clickTitleAction } from '../../store/actionCreators'
 
+
 class ListItem extends Component {
+
   render() {
-
-    const { avtSrc, good, tab, top } = this.props
-
+    const { 
+      avtSrc, 
+      good, 
+      tab, 
+      top,
+      atcId,
+      atcTitle,
+      replyCount,
+      visitCount,
+      replyTime,
+      handleTitleClick
+    } = this.props
     return (
       <Item>
         <Avatar>
@@ -20,19 +32,20 @@ class ListItem extends Component {
           <Title>
             <Link 
               to='/detail' 
-              onClick={this.props.handleTitleClick.bind(this, this.props.atcId)
-              }>{this.props.atcTitle}</Link>
+              onClick={handleTitleClick.bind(this, atcId)
+              }>{atcTitle}</Link>
           </Title>
           <OthInfo>
-            <div>{this.props.replyCount}/{this.props.visitCount}</div>
+            <div>{replyCount}/{visitCount}</div>
             {/* moment(date).toNow()获取的是传入时间date与现在的时差 */}
-            <div>{this.getTimeCn(moment(this.props.replyTime).toNow(true))}前</div>
+            <div>{this.getTimeCn(moment(replyTime).toNow(true))}前</div>
           </OthInfo>
         </InfoWrapper>
       </Item>
     )
   }
 
+  // 将英文标签转化为中文显示
   getTabCn(tab) {
     switch(tab) {
       case 'share':
@@ -105,13 +118,6 @@ class ListItem extends Component {
     return [num, date].join('')
   }
 
-
-}
-
-const mapStateToProps = (state) => {
-  return {
-
-  }
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -122,4 +128,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ListItem)
+export default connect(null, mapDispatchToProps)(ListItem)
