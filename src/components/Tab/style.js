@@ -16,6 +16,7 @@ export const TabWrapper = styled.div`
   }
   a:hover {
     opacity: .9;
+    background: #eee;
     transition: all .2s;
   }
 `
