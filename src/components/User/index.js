@@ -9,11 +9,12 @@ import { UserWrapper, UserAvatar, RecentWrapper, Logout } from './style'
 class User extends Component {
 
   render() {
-    const { userAvtUrl, handleBtnLogout, recentReplies, recentTopics  } = this.props
+    const { userAvtUrl, handleBtnLogout, recentReplies, recentTopics, userName  } = this.props
     return (
       <UserWrapper>
         <UserAvatar>
           <img src={userAvtUrl}  alt=''/>
+          <div>{userName}</div>
           <Logout>
             <Link to='/' onClick={handleBtnLogout}>退出</Link>
           </Logout>

@@ -8,7 +8,7 @@ import { ListWrapper, Spiner, LoadMore } from './style'
 import { loadMoreData } from '../../store/actionCreators'
 
 
-class Lists extends Component {
+class Home extends Component {
 
   render() {
     const { isLoading, arr } = this.props
@@ -70,14 +70,14 @@ class Lists extends Component {
     const this_ = this
 
     // 降低滚动事件的监听频率，提高性能
-    function load () {
-      let canRun=true
+    function load() {
+      let canRun = true
       return () => {
           if(!canRun){ return }
-          canRun=false
+          canRun = false
           setTimeout(() => {
             this_.isVisible(btn) && handleLoadMore(tab)
-            canRun=true
+            canRun = true
           }, 600)
       }
     }
@@ -102,4 +102,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Lists)
+export default connect(mapStateToProps, mapDispatchToProps)(Home)

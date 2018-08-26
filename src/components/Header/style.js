@@ -36,7 +36,4 @@ export const Logbtn = styled.div`
 
 export const UserWrapper = styled.div`
   display: inline-block;
-  span {
-    padding: 10px 20px;
-  }
 `

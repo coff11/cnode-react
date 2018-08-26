@@ -24,7 +24,6 @@ class Header extends Component {
             {window.localStorage.getItem('username')? 
               <UserWrapper>
                 <Link to='/user' onClick={clickLink}>个人中心</Link>
-                <span>coff11</span>
               </UserWrapper>
               :
              <Link to='/login'>登录</Link>}
@@ -39,8 +38,7 @@ class Header extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    isLogin: state.isLogin,
-    username: state.userName
+    isLogin: state.isLogin
   }
 }
 
