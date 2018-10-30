@@ -11,7 +11,7 @@ import {
 } from './actionTypes'
 import { 
   initItemsAllAction, 
-  getAtcDetails, 
+  getAtcDetailsAction, 
   testTokenAction, 
   displayInfo, 
   getUserDataAction,
@@ -35,7 +35,7 @@ function* getItemsAll(act) {
 function* getDetails(act) {
   try {
     const res = yield axios.get(`https://cnodejs.org/api/v1/topic/${act.id}`)
-    yield put(getAtcDetails(res.data.data))
+    yield put(getAtcDetailsAction(res.data.data))
   } catch(e) {
     yield put(displayInfo('获取数据失败'))
   }

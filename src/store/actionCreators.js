@@ -37,7 +37,7 @@ export const clickTitleAction = (id) => {
   }
 }
 
-export const getAtcDetails = (data) => {
+export const getAtcDetailsAction = (data) => {
   return {
     type: GET_DETAILS,
     data
